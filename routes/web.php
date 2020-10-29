@@ -22,3 +22,4 @@ Auth::routes();
 
 
 Route::get('/directory-create', 'DirectoryController@directoryCreate');
+Route::get('/directory-all-files', 'DirectoryController@directoryAllFiles');

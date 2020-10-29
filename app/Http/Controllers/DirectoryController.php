@@ -35,4 +35,23 @@ class DirectoryController extends Controller
             }
         }
     }
+
+    //All contents of a Directory
+    public function directoryAllFiles(Request $request)
+    {
+        //
+        $current_path = $this->public_path . "/" . $request['current_path'];
+
+        if(Storage::exists($current_path)){
+            $all_contents = [];
+            // return "Directory all files show here";
+            $folder_contents['directories'] =  Storage::allDirectories($current_path);
+            $folder_contents['files'] =  Storage::files($current_path);
+
+            return $folder_contents;
+        }
+        else{
+            return "Directory Not Exists";
+        }
+    }
 }
