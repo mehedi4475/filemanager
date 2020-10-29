@@ -25,3 +25,4 @@ Route::post('/directory-create', 'DirectoryController@directoryCreate');
 Route::post('/directory-all-files', 'DirectoryController@directoryAllFiles');
 Route::post('/file-copy', 'DirectoryController@fileCopy');
 Route::post('/file-move', 'DirectoryController@fileMove');
+Route::post('/rename', 'DirectoryController@rename');

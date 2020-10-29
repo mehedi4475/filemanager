@@ -119,4 +119,42 @@ class DirectoryController extends Controller
             return "Content Not Exists";
         }
     }
+
+
+    //Rename File/Directory
+    //If rename file, don't show file extension to rename it.
+    //Only file name will show and rename
+    // old = full path
+    // new = full path
+
+    public function rename(Request $request)
+    {
+        $old = $this->public_path . "/" . $request['old'];
+        $new = $this->public_path . "/" . $request['new'];
+
+        if(Storage::exists($old)){
+
+            if(!Storage::exists($new)){
+
+                $response =  Storage::move($old, $new);
+
+                if($response == 1){
+                    return "Rename Successfully";
+                }
+                else{
+                    return "Sorry, Some problem to rename now. Please try again later";
+                }
+            }
+            else{
+                return "Can't rename because this name already exists.";
+            }
+        }
+        else{
+            return "Content Not Exists";
+        }
+    }
+
+
+
+
 }
