@@ -65,7 +65,7 @@ class DirectoryController extends Controller
 
         if(Storage::exists($copy_from)){
 
-        	if(!Storage::exists($copy_to)){
+        	if(!Storage::exists($copy_to . "/" . basename($copy_from))){
 
 	            $response = Storage::copy($copy_from, $copy_to . "/" . basename($copy_from));
 
@@ -77,8 +77,39 @@ class DirectoryController extends Controller
 	            }
 	        }
 	        else{
-	        	return "Can't rename because this name already exists.";
+	        	return "Can't copy because this name already exists.";
 	        }
+        }
+        else{
+            return "Content Not Exists";
+        }
+    }
+
+
+
+
+    //Move a file to another Directory
+    public function fileMove(Request $request)
+    {
+        $move_from = $this->public_path . "/" . $request['move_from'];
+        $move_to = $this->public_path . "/" . $request['move_to'];
+        
+        if(Storage::exists($move_from)){
+
+            if(!Storage::exists($move_to . "/" . basename($move_from))){
+
+                $response =  Storage::move($move_from, $move_to . "/" . basename($move_from));
+
+                if($response == 1){
+                    return "Move Successfully";
+                }
+                else{
+                    return "Sorry, Some problem to move now. Please try again later";
+                }
+            }
+            else{
+                return "Can't move because this name already exists.";
+            }
         }
         else{
             return "Content Not Exists";

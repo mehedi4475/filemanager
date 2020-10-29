@@ -21,6 +21,7 @@ Auth::routes();
 
 
 
-Route::get('/directory-create', 'DirectoryController@directoryCreate');
-Route::get('/directory-all-files', 'DirectoryController@directoryAllFiles');
-Route::get('/file-copy', 'DirectoryController@fileCopy');
+Route::post('/directory-create', 'DirectoryController@directoryCreate');
+Route::post('/directory-all-files', 'DirectoryController@directoryAllFiles');
+Route::post('/file-copy', 'DirectoryController@fileCopy');
+Route::post('/file-move', 'DirectoryController@fileMove');
