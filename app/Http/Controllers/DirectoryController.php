@@ -157,4 +157,45 @@ class DirectoryController extends Controller
 
 
 
+    //Delete File/Directory
+    // path = file/folder path
+    // type = directory | file
+
+    public function delete(Request $request)
+    {
+        $path = $this->public_path . "/" . $request['path'];
+        $type = $request['type'];
+
+        if(Storage::exists($path) && $type == "directory"){
+            
+            $response = Storage::deleteDirectory($path);
+            
+            if($response == 1){
+                return "Delete Directory Successfully";
+            }
+            else{
+                return "Sorry, Some problem to delete directory now. Please try again later";
+            }
+        }
+        elseif(Storage::exists($path) && $type == "file"){
+
+            $response = Storage::delete($path);
+            
+            if($response == 1){
+                return "Delete File Successfully";
+            }
+            else{
+                return "Sorry, Some problem to delete file now. Please try again later";
+            }
+
+        }
+        else{
+            return "Not found, Please check file name/path";
+        }
+
+    }
+
+
+
+
 }

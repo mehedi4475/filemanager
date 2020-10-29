@@ -26,3 +26,4 @@ Route::post('/directory-all-files', 'DirectoryController@directoryAllFiles');
 Route::post('/file-copy', 'DirectoryController@fileCopy');
 Route::post('/file-move', 'DirectoryController@fileMove');
 Route::post('/rename', 'DirectoryController@rename');
+Route::post('/delete', 'DirectoryController@delete');
