@@ -28,10 +28,10 @@ class DirectoryController extends Controller
             $response =  Storage::makeDirectory($full_path);
 
             if($response == 1){
-                return "Directory Created Successfully";
+                return response()->json("Directory Created Successfully");
             }
             else{
-                return "Sorry, Some problem to create directory. Please try again later";
+                return response()->json("Sorry, Some problem to create directory. Please try again later");
             }
         }
     }
@@ -60,7 +60,7 @@ class DirectoryController extends Controller
             return $folder_contents;
         }
         else{
-            return "Directory Not Exists";
+           return response()->json("Directory Not Exists");
         }
     }
 
@@ -81,18 +81,18 @@ class DirectoryController extends Controller
 	            $response = Storage::copy($copy_from, $copy_to . "/" . basename($copy_from));
 
 	            if($response == 1){
-	                return "Copy Successfully";
+	               return response()->json("Copy Successfully");
 	            }
 	            else{
-	                return "Sorry, Some problem to copy now. Please try again later";
+	                return response()->json("Sorry, Some problem to copy now. Please try again later");
 	            }
 	        }
 	        else{
-	        	return "Can't copy because this name already exists.";
+	        	return response()->json("Can't copy because this name already exists.");
 	        }
         }
         else{
-            return "Content Not Exists";
+            return response()->json("Content Not Exists");
         }
     }
 
@@ -114,18 +114,18 @@ class DirectoryController extends Controller
                 $response =  Storage::move($move_from, $move_to . "/" . basename($move_from));
 
                 if($response == 1){
-                    return "Move Successfully";
+                    return response()->json("Move Successfully");
                 }
                 else{
-                    return "Sorry, Some problem to move now. Please try again later";
+                    return response()->json("Sorry, Some problem to move now. Please try again later");
                 }
             }
             else{
-                return "Can't move because this name already exists.";
+                return response()->json("Can't move because this name already exists.");
             }
         }
         else{
-            return "Content Not Exists";
+           return response()->json("Content Not Exists");
         }
     }
 
@@ -148,18 +148,18 @@ class DirectoryController extends Controller
                 $response =  Storage::move($old, $new);
 
                 if($response == 1){
-                    return "Rename Successfully";
+                   return response()->json("Rename Successfully");
                 }
                 else{
-                    return "Sorry, Some problem to rename now. Please try again later";
+                   return response()->json("Sorry, Some problem to rename now. Please try again later");
                 }
             }
             else{
-                return "Can't rename because this name already exists.";
+                return response()->json("Can't rename because this name already exists.");
             }
         }
         else{
-            return "Content Not Exists";
+            return response()->json("Content Not Exists");
         }
     }
 
@@ -180,10 +180,10 @@ class DirectoryController extends Controller
             $response = Storage::deleteDirectory($path);
             
             if($response == 1){
-                return "Delete Directory Successfully";
+                return response()->json("Delete Directory Successfully");
             }
             else{
-                return "Sorry, Some problem to delete directory now. Please try again later";
+               return response()->json("Sorry, Some problem to delete directory now. Please try again later");
             }
         }
         elseif(Storage::exists($path) && $type == "file"){
@@ -191,16 +191,38 @@ class DirectoryController extends Controller
             $response = Storage::delete($path);
             
             if($response == 1){
-                return "Delete File Successfully";
+                return response()->json("Delete File Successfully");
             }
             else{
-                return "Sorry, Some problem to delete file now. Please try again later";
+                return response()->json("Sorry, Some problem to delete file now. Please try again later");
             }
 
         }
         else{
-            return "Not found, Please check file name/path";
+            return response()->json("Not found, Please check file name/path");
         }
+
+    }
+
+
+
+
+    //Upload File
+    public function fileUpload(Request $request){
+
+        $this->validate($request, [
+            'fileName' => 'required|image|max:102024|mimes:jpeg,png'
+        ]);
+
+        $path = $request['path'] OR ".";
+
+        $file_title = $request->file('fileName')->getClientOriginalName();
+    	
+
+    	return $temp_path = Storage::disk('public')->putFileAs($path, $request->fileName, $file_title);
+
+        
+
 
     }
 
