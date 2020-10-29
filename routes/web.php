@@ -23,3 +23,4 @@ Auth::routes();
 
 Route::get('/directory-create', 'DirectoryController@directoryCreate');
 Route::get('/directory-all-files', 'DirectoryController@directoryAllFiles');
+Route::get('/file-copy', 'DirectoryController@fileCopy');

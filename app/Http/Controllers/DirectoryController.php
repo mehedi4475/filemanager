@@ -54,4 +54,34 @@ class DirectoryController extends Controller
             return "Directory Not Exists";
         }
     }
+
+
+
+    //Copy a file to another Directory
+    public function fileCopy(Request $request)
+    {
+        $copy_from = $this->public_path . "/" . $request['copy_from'];
+        $copy_to = $this->public_path . "/" . $request['copy_to'];
+
+        if(Storage::exists($copy_from)){
+
+        	if(!Storage::exists($copy_to)){
+
+	            $response = Storage::copy($copy_from, $copy_to . "/" . basename($copy_from));
+
+	            if($response == 1){
+	                return "Copy Successfully";
+	            }
+	            else{
+	                return "Sorry, Some problem to copy now. Please try again later";
+	            }
+	        }
+	        else{
+	        	return "Can't rename because this name already exists.";
+	        }
+        }
+        else{
+            return "Content Not Exists";
+        }
+    }
 }
