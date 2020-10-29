@@ -57,7 +57,9 @@ class DirectoryController extends Controller
 
 
 
-    //Copy a file to another Directory
+    // Copy a file to another Directory
+    // copy_from = full path + file name
+    // copy_to = directory name
     public function fileCopy(Request $request)
     {
         $copy_from = $this->public_path . "/" . $request['copy_from'];
@@ -88,7 +90,9 @@ class DirectoryController extends Controller
 
 
 
-    //Move a file to another Directory
+    // Move a file to another Directory
+    // move_from = full path + file name
+    // move_to = directory name
     public function fileMove(Request $request)
     {
         $move_from = $this->public_path . "/" . $request['move_from'];
