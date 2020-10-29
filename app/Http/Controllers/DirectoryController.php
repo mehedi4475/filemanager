@@ -44,9 +44,18 @@ class DirectoryController extends Controller
 
         if(Storage::exists($current_path)){
             $all_contents = [];
-            // return "Directory all files show here";
-            $folder_contents['directories'] =  Storage::allDirectories($current_path);
-            $folder_contents['files'] =  Storage::files($current_path);
+
+            $directory_list = Storage::directories($current_path);
+			$folder_contents['directories'] = array_map(function($single){
+				return substr($single, strrpos($single, '/') + 1);
+			}, $directory_list);
+
+
+			$file_list = Storage::files($current_path);
+			$folder_contents['files'] = array_map(function($file){
+				return substr($file, strrpos($file, '/') + 1);
+			}, $file_list);
+
 
             return $folder_contents;
         }
