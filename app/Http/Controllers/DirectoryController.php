@@ -219,8 +219,14 @@ class DirectoryController extends Controller
         $file_title = $request->file('fileName')->getClientOriginalName();
     	
 
-    	return $temp_path = Storage::disk('public')->putFileAs($path, $request->fileName, $file_title);
+    	$response = Storage::disk('public')->putFileAs($path, $request->fileName, $file_title);
 
+        if($response){
+            return response()->json("Upload Successfully");
+        }
+        else{
+            return response()->json("Sorry, Some problem to upload file now. Please try again later");
+        }
         
 
 
