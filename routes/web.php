@@ -17,7 +17,11 @@ Route::get('/', function () {
 
 Auth::routes();
 
-// Route::get('/home', 'HomeController@index')->name('home');
+Route::middleware('auth:api')->get('/user', function(Request $request) {
+    return $request->user();
+});
+
+Route::get('/home', 'HomeController@index')->name('home');
 
 
 

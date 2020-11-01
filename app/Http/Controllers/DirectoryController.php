@@ -211,7 +211,8 @@ class DirectoryController extends Controller
     public function fileUpload(Request $request){
 
         $this->validate($request, [
-            'fileName' => 'required|image|max:102024|mimes:jpeg,png'
+            // 'fileName' => 'required|image|max:102024|mimes:jpeg,png'
+            'fileName' => 'required'
         ]);
 
         $path = $request['path'] OR ".";
